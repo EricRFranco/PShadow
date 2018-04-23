@@ -61,17 +61,18 @@ public class ShadowController : MonoBehaviour {
 
     private void MovePlayer()
     {
-        //retrieve input values
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        //normalize the GameObject's normal vector to retrieve
-        //current facing direction
+
         Vector3 forward = Vector3.forward;
+        Vector3 right = Vector3.right;
+        forward.y = 0f;
+        right.y = 0f;
         forward.Normalize();
-        //scale the normalized vector by the vertical axis value
+        right.Normalize();
+
         Vector3 desiredMovement = forward * vertical;
         transform.Translate(desiredMovement * moveSpeedFactor * Time.deltaTime);
-        //rotate according to horizontal axis value
         transform.Rotate(0f, horizontal, 0f);
     }
 }
