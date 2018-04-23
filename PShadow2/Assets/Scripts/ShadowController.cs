@@ -10,12 +10,10 @@ public class ShadowController : MonoBehaviour {
 
     //private variables
     [SerializeField]
-    ParticleSystem myParticles;
-    [SerializeField]
     Camera camera;
 
     float initHeight;
-    float shrinkTimer = 0f;
+    float shrinkTimer = 3f;
     float cameraYPos;
 
 	// Use this for initialization
@@ -26,6 +24,7 @@ public class ShadowController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         MovePlayer();
+        GrowthControl();
         //Lock camera to default yPos (for now)
         camera.transform.position = new Vector3(camera.transform.position.x, cameraYPos, camera.transform.position.z);
 	}
@@ -34,10 +33,30 @@ public class ShadowController : MonoBehaviour {
     private void ChangeSize(bool grow)
     {
         //grow if true, shrink if false
-        int growFactor = (grow) ? 1 : -1;
+        int growFactor = (grow) ? -1 : 1;
         transform.localScale += new Vector3(0f, growFactor * scaleFactor, 0f);
         //ensure GameObject does not shrink past scale y = 0
         transform.localScale = new Vector3(1f, Mathf.Max(0f, transform.localScale.y), 1f);
+    }
+
+    private void GrowthControl()
+    {
+        //Player shrinks if K is pressed and is not already fully shrunken
+        if(Input.GetKey(KeyCode.K) && transform.localScale.y > 0f)
+        {
+            ChangeSize(true);
+            shrinkTimer = 3f;
+        }
+
+        //Decrement timer
+        if (shrinkTimer > 0) shrinkTimer -= Time.deltaTime;
+
+        //Resize if J is pressed or the timer hits 0
+        if((Input.GetKey(KeyCode.J) || shrinkTimer <= 0) && transform.localScale.y < 1f )
+        {
+            ChangeSize(false);
+        }
+
     }
 
     private void MovePlayer()

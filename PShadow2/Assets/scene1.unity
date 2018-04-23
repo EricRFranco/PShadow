@@ -156,9 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9df29970be50943b398d3beccbf1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleFactor: 0.5
+  scaleFactor: 0.05
   moveSpeedFactor: 0.5
-  myParticles: {fileID: 0}
   camera: {fileID: 1638438916}
 --- !u!1 &1256126836
 GameObject:
@@ -389,7 +388,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -943296829
+  randomSeed: 1435640633
   InitialModule:
     serializedVersion: 3
     enabled: 1
